@@ -5,8 +5,13 @@ pipeline {
         stage('Git Checkout') {
             steps {
                 script {
-                    // Checkout the Git repository
-                    bat 'git clone https://github.com/YashwanthSaiRajReddyVanga/DW4.git'
+                    // Check if the 'DW4' directory already exists in the workspace
+                    if (!fileExists('DW4')) {
+                        // Clone the repository if it doesn't exist
+                        bat 'git clone https://github.com/YashwanthSaiRajReddyVanga/DW4.git'
+                    } else {
+                        echo "Repository already cloned. Skipping clone step."
+                    }
                 }
             }
         }
